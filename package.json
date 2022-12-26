@@ -1,0 +1,32 @@
+{
+  "name": "toeic_backend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "module backend for toeic project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd frontend-website && npm install && npm run build",
+    "start": "nodemon --watch all --exec node --experimental-modules index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thanhloctruong/toeic-backend.git"
+  },
+  "keywords": [
+    "toeic"
+  ],
+  "author": "acan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thanhloctruong/toeic-backend/issues"
+  },
+  "homepage": "https://github.com/thanhloctruong/toeic-backend#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.1",
+    "nodemon": "^2.0.20"
+  }
+}
