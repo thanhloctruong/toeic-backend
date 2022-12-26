@@ -1,5 +1,13 @@
 import mongoose from "mongoose";
-
+const reviewSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    point: { type: Number, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -16,6 +24,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isAdmin: { type: Boolean, required: true, default: false },
+    review: [reviewSchema],
   },
   {
     timestamps: true,

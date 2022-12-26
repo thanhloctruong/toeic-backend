@@ -1,5 +1,6 @@
 import express from "express";
 import Exercise from "../modelsSchema/exerciseModel.js";
+import User from "../modelsSchema/userModel.js";
 import data from "../mockup/data.js";
 import { generateToken, isAuth, isAdmin } from "../../utils/utils.js";
 
@@ -91,13 +92,27 @@ exerciseRouter.post("/join", isAuth, async (req, res) => {
   }
 });
 
-exerciseRouter.post("/join", isAuth, async (req, res) => {
+exerciseRouter.post("/submit", isAuth, async (req, res) => {
   try {
-    const result = await Exercise.findById(req.body.idExercise);
-
-    res.send({ data: data });
+    const user = await User.findById(req.user._id);
+    const exercise = await Exercise.findById(req.body.idExercise);
+    const marks = await req.body.mark;
+    let point = 0;
+    exercise.des.map((item) => {
+      marks.map((mart) => {
+        if (mart._id == item._id && mart.answer == item.answerCorrect) {
+          point += 10 / exercise.des.length;
+        }
+      });
+    });
+    user.review.push({
+      name: exercise.name,
+      point: point,
+    });
+    const updatedUser = await user.save();
+    res.send({ data: point, user: updatedUser });
   } catch (error) {
-    res.status(400).send({ message: "Get list success" });
+    res.status(400).send({ message: error });
   }
 });
 
