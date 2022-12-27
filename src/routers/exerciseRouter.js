@@ -50,7 +50,7 @@ const exerciseRouter = express.Router();
 //       .limit(pageSize);
 //     res.send({ products, page, pages: Math.ceil(count / pageSize) });
 //   } catch (error) {}
-// });
+// });axs
 
 exerciseRouter.get("/seed", async (req, res) => {
   try {
