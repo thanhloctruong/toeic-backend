@@ -116,6 +116,46 @@ exerciseRouter.post("/submit", isAuth, async (req, res) => {
   }
 });
 
+exerciseRouter.post("/create", isAuth, async (req, res) => {
+  try {
+    const exercise = new Exercise({
+      name: req.body.name,
+      des: req.body.des,
+    })
+const result = exercise.save()
+    res.status(200).send({ data: result, message: "create question success!"});
+  } catch (error) {
+    res.status(400).send({ message: "cant create question" });
+  }
+});
+
+exerciseRouter.post("/update", isAuth, async (req, res) => {
+  try {
+    const exercise =await Exercise.findById(req.body.id);
+if(exercise){
+  exercise.name = req.body.name;
+  exercise.des = req.body.des;
+  const result = exercise.save()
+      res.status(200).send({ data: result, message: "update success question success!"});
+}
+  } catch (error) {
+    res.status(400).send({ message: "cant create question" });
+  }
+});
+
+
+exerciseRouter.post("/delete", isAuth, async (req, res) => {
+  try {
+    const exercise =await Exercise.findById(req.body.id);
+if(exercise){
+  const deleteExercise = await exercise.remove();
+        res.status(200).send({ message: "Question Deleted", exercise: deleteExercise });
+}
+  } catch (error) {
+    res.status(400).send({ message: "cant delete question" });
+  }
+});
+
 // productRouter.get(
 //   "/:id",
 //   expressAsyncHandler(async (req, res) => {
